@@ -1,0 +1,74 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50709
+Source Host           : localhost:3306
+Source Database       : cms
+
+Target Server Type    : MYSQL
+Target Server Version : 50709
+File Encoding         : 65001
+
+Date: 2016-06-03 18:47:13
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `admin`
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '管理员id',
+  `username` varchar(100) NOT NULL COMMENT '用户名',
+  `password` varchar(100) NOT NULL COMMENT '密码',
+  `salt` varchar(10) DEFAULT NULL COMMENT '随机数',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `category`
+-- ----------------------------
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) NOT NULL COMMENT '栏目名称',
+  `parent_id` int(11) DEFAULT '0' COMMENT '父级栏目的id',
+  `sort` int(11) DEFAULT '0' COMMENT '排序',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of category
+-- ----------------------------
+INSERT INTO `category` VALUES ('1', '测试', '0', '0', '2016-06-03 18:45:24', null);
+INSERT INTO `category` VALUES ('2', '最新动态', '1', '0', '2016-06-03 18:45:31', null);
+
+-- ----------------------------
+-- Table structure for `content`
+-- ----------------------------
+DROP TABLE IF EXISTS `content`;
+CREATE TABLE `content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(255) NOT NULL COMMENT '标题',
+  `introtext` text COMMENT '短介绍',
+  `fulltext` mediumtext NOT NULL COMMENT '全部内容',
+  `author_id` int(11) DEFAULT NULL COMMENT '作者id',
+  `sort` int(11) DEFAULT '0' COMMENT '排序',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of content
+-- ----------------------------
