@@ -58,6 +58,7 @@ function getContentList(){
 }
 
 //分页
+//limit:每页页数,page:当前页，total_count：总页数，url:当前页url
 function pagination(limit,page,total_count,url){
     limit = parseInt(limit);
     page = parseInt(page);
@@ -70,27 +71,42 @@ function pagination(limit,page,total_count,url){
     var pre_url = url+'&page='+(parseInt(page-1));
     var pre_html = '<li>'
         +'<a href="'+pre_url+'" aria-label="Previous">'
-        +'<span aria-hidden="true">&laquo;</span>'
+        +'<span aria-hidden="true">&laquo;上一页</span>'
         +'</a>'
         +'</li>';
+
+    var first_html = '<li><a href="'+url+'">首页</a></li>';
     //如果当前页是第一页
     if(page == 1) {
-        pre_html = '<li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+        pre_html = '<li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span aria-hidden="true">&laquo;上一页</span></a></li>';
     }
 
     var next_url = url+'&page='+(parseInt(page+1));
     var next_html = '<li>'
         +'<a href="'+next_url+'" aria-label="Next">'
-        +'<span aria-hidden="true">&raquo;</span>'
+        +'<span aria-hidden="true">下一页&raquo;</span>'
         +'</a>'
         +'</li>';
     if(page == total_page) {
-        next_html = '<li class="disabled"><a href="javascript:void(0);" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+        next_html = '<li class="disabled"><a href="javascript:void(0);" aria-label="Next"><span aria-hidden="true">下一页&raquo;</span></a></li>';
     }
+
+    var last_url = url+'&page='+total_page;
+    var last_html = '<li><a href="'+last_url+'">末页</a></li>';
 
     var number_html='';
     //遍历打印数字按钮
-    for(var i=1;i<=total_page;i++){
+    var start = page-2;
+    var end = page+2;
+
+    if(page<=3){
+        start = 1;
+        end = total_page<5?total_page:5;
+    } else if(page>total_page-3) {
+        start = total_page<5?1:(total_page-5);
+        end = total_page;
+    }
+    for(var i=start;i<=end;i++){
         var active = '';
         if(page == i){
             active = 'active';
@@ -99,6 +115,6 @@ function pagination(limit,page,total_count,url){
         number_html += '<li class="'+active+'"><a href="'+link_url+'">'+i+'</a></li>';
     }
 
-    $('#pagination').html(pre_html+number_html+next_html);
+    $('#pagination').html(first_html+pre_html+number_html+next_html+last_html);
     return true;
 }
