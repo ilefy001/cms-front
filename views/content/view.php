@@ -20,6 +20,7 @@ $this->title = $model->title;
     </div>
 </div>
 <input type="hidden" id="content_id" value="<?= $model->id ?>">
+<input type="hidden" id="cur_cat_id">
 
 <script src="/ueditor/ueditor.parse.min.js"></script>
 <script src="/js/content.js"></script>

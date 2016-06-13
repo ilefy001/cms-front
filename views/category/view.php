@@ -29,27 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <ul class="list-group" id="content_list">
             </ul>
             <nav>
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
+                <ul class="pagination" id="pagination"></ul>
             </nav>
+            <div>共<span id="total_count"></span>条</div>
         </div>
     </div>
     <input type="hidden" id="cur_cat_id" value="<?php echo $model->id; ?>">
+    <input type="hidden" id="page" value="<?= $page ?>">
 
 <script type="text/javascript">
     $(function(){

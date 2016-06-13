@@ -35,8 +35,8 @@ function joinBreadcrumb($categroy){
         if($categroy.hasOwnProperty('parent')) {
             joinBreadcrumb($categroy['parent']);
         } else {
-            $('#top_category').find('li').removeClass('active');
-            $('#top_menu_'+$categroy.id).addClass('active');
+            $('#cur_cat_id').val($categroy.id);
+            getTopCategory();
         }
         category_br += '<li><a href="/index.php?r=category/view&id='+$categroy.id+'">'+$categroy.name+'</a></li>';
     }

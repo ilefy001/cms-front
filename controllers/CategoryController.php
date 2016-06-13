@@ -33,29 +33,16 @@ class CategoryController extends Controller
     }
 
     /**
-     * Lists all Category models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Category::find(),
-        ]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
      * Displays a single Category model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
+        $page = !empty($_REQUEST['page']) ? intval($_REQUEST['page']):1;    //当前页
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'page'=>$page
         ]);
     }
 

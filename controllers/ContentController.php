@@ -41,12 +41,22 @@ class ContentController extends Controller
             $rt->PrintFormatByEncodeJson();
         }
 
-        $category_list = \app\models\Content::find()
+        $limit = !empty($_REQUEST['limit']) ? intval($_REQUEST['limit']):10;
+        $limit = $limit>100?100:$limit; //最大为100
+
+        $page = !empty($_REQUEST['page']) ? intval($_REQUEST['page']):1;    //当前页
+        $offset = ($page-1)*$limit;
+
+        $total_count = \app\models\Content::find()
+            ->where(['category_id' => $category_id])->count();  //总页数
+        $list = \app\models\Content::find()
             ->where(['category_id' => $category_id])
             ->orderBy('id')
             ->limit(10)
+            ->offset($offset)
             ->all();
-        $rt->SetParam('list',$category_list);
+        $rt->SetParam('list',$list);
+        $rt->SetParam('total_count',$total_count);
         $rt->PrintFormatByEncodeJson();
     }
 
